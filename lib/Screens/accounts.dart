@@ -41,7 +41,7 @@ class _LoginOrSignupState extends State<LoginOrSignup> {
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/chatlist");
+                  Navigator.pushNamed(context, "/login");
                 },
                 child: Text(
                   "Login",
@@ -64,7 +64,7 @@ class _LoginOrSignupState extends State<LoginOrSignup> {
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/chatlist");
+                  Navigator.pushNamed(context, "/signup");
                 },
                 child: Text(
                   "Sign Up",

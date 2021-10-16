@@ -17,9 +17,9 @@ class _SplashState extends State<Splash> {
       body: Container(
         child: Column(
           children: [
-            Spacer(
-              flex: 3,
-            ),
+            // Spacer(
+            //   flex: 3,
+            // ),
             Image.asset("assets/images/3.png"),
             Spacer(),
             Text(
