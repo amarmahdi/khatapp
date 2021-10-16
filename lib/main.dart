@@ -22,7 +22,7 @@ void main() {
       '/chatlist': (context) => ChatList(),
       '/message': (context) => Message(),
       '/login': (context) => LoginScreen(),
-      '/register': (context) => SignupScreen()
+      '/signup': (context) => SignupScreen()
     },
   ));
   SystemChrome.setEnabledSystemUIOverlays([]);
