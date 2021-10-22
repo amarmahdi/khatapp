@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:khatapp/services/authService.dart';
+import 'package:provider/provider.dart';
 import '../constants.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -24,6 +25,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider signup = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -95,14 +98,17 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   TextButton(
                     onPressed: () async {
-                      print(_emailController.text);
-                      setState(() {
-                        userSignup(
-                          _emailController.text,
-                          _usernameController.text,
-                          _passwordController.text,
-                        );
-                      });
+                      signup
+                          .userSignup(
+                        _emailController.text,
+                        _usernameController.text,
+                        _passwordController.text,
+                      )
+                          .then(
+                        (response) {
+                          Provider.of<UserProvider>(context).setUser(response);
+                        },
+                      );
                     },
                     child: Text(
                       "Sign Up",

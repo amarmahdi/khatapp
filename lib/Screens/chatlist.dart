@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:khatapp/Screens/listOfAccounts.dart';
 import 'package:flutter/material.dart';
+import 'package:khatapp/constants.dart';
+import 'package:khatapp/services/shared_preferences.dart';
 
 import 'SubWidgets/Navbar.dart';
 import 'SubWidgets/UserListWidgets.dart';
@@ -16,9 +18,6 @@ class ChatList extends StatefulWidget {
 class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
-    double wid = MediaQuery.of(context).size.width;
-    // double high = MediaQuery.of(context).size.height;
-    log(accounts[0]["pic"].toString());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -29,7 +28,7 @@ class _ChatListState extends State<ChatList> {
         ),
       ),
       floatingActionButton: Container(
-        width: wid - 150,
+        width: width(context) - 150,
         child: FloatingActionButton(
           onPressed: () {},
           child: Icon(Icons.person_add_outlined),
@@ -69,7 +68,7 @@ class _ChatListState extends State<ChatList> {
                   itemBuilder: (BuildContext context, index) {
                     return Container(
                       child: ListButtonWidget(
-                        wid: wid,
+                        wid: width(context),
                         pic: accounts[index]["pic"],
                         username: accounts[index]["username"],
                       ),
