@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:khatapp/services/authService.dart';
+import '../constants.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -8,10 +10,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -27,9 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: height,
-          width: width,
-          padding: EdgeInsets.all(width / 7),
+          height: height(context),
+          width: width(context),
+          padding: EdgeInsets.all(width(context) / 7),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -49,21 +59,40 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 children: [
                   TextField(
+                    controller: _usernameController,
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(), labelText: 'Username'),
+                      border: OutlineInputBorder(),
+                      labelText: 'Username',
+                    ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   TextField(
+                    controller: _passwordController,
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(), labelText: 'Password'),
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
+                    ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   TextButton(
-                      onPressed: () => {},
+                      onPressed: () {
+                        setState(() {
+                          userLogin(
+                            _usernameController.text,
+                            _passwordController.text,
+                          );
+                        });
+                      },
                       child: Text(
                         "Login",
                         style: TextStyle(fontSize: 25),

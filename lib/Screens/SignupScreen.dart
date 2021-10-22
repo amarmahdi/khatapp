@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:khatapp/services/authService.dart';
+import '../constants.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key key}) : super(key: key);
@@ -8,10 +10,20 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -27,9 +39,9 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: height,
-          width: width,
-          padding: EdgeInsets.all(width / 7),
+          height: height(context),
+          width: width(context),
+          padding: EdgeInsets.all(width(context) / 7),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -49,6 +61,10 @@ class _SignupScreenState extends State<SignupScreen> {
               Column(
                 children: [
                   TextField(
+                    controller: _emailController,
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
                     decoration: InputDecoration(
                         border: OutlineInputBorder(), labelText: 'Email'),
                   ),
@@ -56,6 +72,10 @@ class _SignupScreenState extends State<SignupScreen> {
                     height: 10,
                   ),
                   TextField(
+                    controller: _usernameController,
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
                     decoration: InputDecoration(
                         border: OutlineInputBorder(), labelText: 'Username'),
                   ),
@@ -63,6 +83,10 @@ class _SignupScreenState extends State<SignupScreen> {
                     height: 10,
                   ),
                   TextField(
+                    controller: _passwordController,
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
                     decoration: InputDecoration(
                         border: OutlineInputBorder(), labelText: 'Password'),
                   ),
@@ -70,11 +94,21 @@ class _SignupScreenState extends State<SignupScreen> {
                     height: 10,
                   ),
                   TextButton(
-                      onPressed: () => {},
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(fontSize: 25),
-                      ))
+                    onPressed: () async {
+                      print(_emailController.text);
+                      setState(() {
+                        userSignup(
+                          _emailController.text,
+                          _usernameController.text,
+                          _passwordController.text,
+                        );
+                      });
+                    },
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
                 ],
               ),
               Spacer(

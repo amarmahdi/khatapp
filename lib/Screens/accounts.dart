@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import '../constants.dart';
 
 class LoginOrSignup extends StatefulWidget {
   const LoginOrSignup({Key key}) : super(key: key);
@@ -11,18 +12,18 @@ class LoginOrSignup extends StatefulWidget {
 class _LoginOrSignupState extends State<LoginOrSignup> {
   @override
   Widget build(BuildContext context) {
-    double high = MediaQuery.of(context).size.height;
-    double wid = MediaQuery.of(context).size.width;
-    log(high.toString());
+    int numb = 0;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          width: width(context),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
                 "assets/images/2.png",
-                // height: high / 2,
+                height: height(context) / 3,
               ),
               Text(
                 "KhatApp",
@@ -31,8 +32,12 @@ class _LoginOrSignupState extends State<LoginOrSignup> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black.withOpacity(0.7)),
               ),
+              SizedBox(
+                height: 45,
+              ),
               Container(
-                width: wid / 1.25,
+                width: width(context) / 1.25,
+                height: 70,
                 decoration: BoxDecoration(
                   color: Colors.green,
                   borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -52,10 +57,11 @@ class _LoginOrSignupState extends State<LoginOrSignup> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
-                width: wid / 1.25,
+                width: width(context) / 1.25,
+                height: 70,
                 decoration: BoxDecoration(
                   color: Colors.cyan,
                   borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -75,7 +81,35 @@ class _LoginOrSignupState extends State<LoginOrSignup> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 40,
+              ),
+              InkWell(
+                onTap: () {
+                  print(
+                      'i am clicked $numb ${numb == 1 || numb == 0 ? 'time' : 'times'}');
+                  numb++;
+                },
+                child: Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 90,
+                        height: 90,
+                        child: Image.asset("assets/images/g3.png"),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Login with google",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 40,
               ),
             ],
           ),
