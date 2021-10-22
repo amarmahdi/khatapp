@@ -12,7 +12,7 @@ class UserPreferences {
     return prefs.commit();
   }
 
-  Future<Account> getUser(userId) async {
+  Future<Account> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String userId = prefs.getString('userId');
     String email = prefs.getString('email');

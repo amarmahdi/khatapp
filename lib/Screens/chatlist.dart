@@ -1,12 +1,10 @@
-import 'dart:developer';
-
 import 'package:khatapp/Screens/listOfAccounts.dart';
 import 'package:flutter/material.dart';
 import 'package:khatapp/constants.dart';
-import 'package:khatapp/services/shared_preferences.dart';
-
+import 'package:provider/provider.dart';
 import 'SubWidgets/Navbar.dart';
 import 'SubWidgets/UserListWidgets.dart';
+import './../services/authService.dart';
 
 class ChatList extends StatefulWidget {
   const ChatList({Key key}) : super(key: key);
@@ -18,6 +16,7 @@ class ChatList extends StatefulWidget {
 class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
+    Account user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -70,7 +69,7 @@ class _ChatListState extends State<ChatList> {
                       child: ListButtonWidget(
                         wid: width(context),
                         pic: accounts[index]["pic"],
-                        username: accounts[index]["username"],
+                        username: user.email,
                       ),
                     );
                   },

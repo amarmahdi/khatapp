@@ -7,6 +7,7 @@ import 'package:khatapp/Screens/chatlist.dart';
 import 'package:khatapp/Screens/messageScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:khatapp/services/authService.dart';
+import 'package:khatapp/services/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,11 +16,16 @@ void main() {
   SystemChrome.setEnabledSystemUIOverlays([]);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({
     Key key,
   }) : super(key: key);
 
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -35,7 +41,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => Splash(),
+          '/': (context) => Check(),
           '/accounts': (context) => LoginOrSignup(),
           '/chatlist': (context) => ChatList(),
           '/message': (context) => Message(),
@@ -44,5 +50,20 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class Check extends StatefulWidget {
+  const Check({Key key}) : super(key: key);
+
+  @override
+  _CheckState createState() => _CheckState();
+}
+
+class _CheckState extends State<Check> {
+  @override
+  Widget build(BuildContext context) {
+    Account user = Provider.of<UserProvider>(context).user;
+    return user.userId != null ? ChatList() : Splash();
   }
 }

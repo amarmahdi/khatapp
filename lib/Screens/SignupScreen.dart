@@ -26,7 +26,6 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     AuthProvider signup = Provider.of<AuthProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -106,7 +105,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       )
                           .then(
                         (response) {
-                          Provider.of<UserProvider>(context).setUser(response);
+                          Account user = response['data'];
+                          Provider.of<UserProvider>(context, listen: false)
+                              .setUser(user);
+                          Navigator.pushNamed(context, '/chatlist');
                         },
                       );
                     },

@@ -2,7 +2,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'package:khatapp/services/shared_preferences.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 enum Status {
@@ -98,7 +97,7 @@ Future success(http.Response response) async {
   final data = jsonDecode(response.body);
 
   if (response.statusCode == 200) {
-    tokenGen(data['data']['token']);
+    tokenGen(data['data']['id'], data['data']['token']);
 
     Account authUser = Account.fromJson(data['data']);
     UserPreferences().saveUser(authUser);
@@ -118,15 +117,15 @@ Future success(http.Response response) async {
   return result;
 }
 
-Future tokenGen(data) async {
+Future tokenGen(userId, token) async {
   final tokenResponse = await http.post(
     Uri.parse('http://192.168.0.100:3000/tokengen'),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode({
-      'userId': data['data']['id'],
-      'token': data['token'],
+      'userId': userId,
+      'token': token,
     }),
   );
   return tokenResponse;

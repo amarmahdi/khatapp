@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:khatapp/services/authService.dart';
 import '../constants.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider login = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -86,11 +88,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                       onPressed: () {
-                        setState(() {
-                          // userLogin(
-                          //   _usernameController.text,
-                          //   _passwordController.text,
-                          // );
+                        login
+                            .userLogin(
+                          _usernameController.text,
+                          _passwordController.text,
+                        )
+                            .then((response) {
+                          Account user = response['data'];
+                          Provider.of<UserProvider>(context, listen: false)
+                              .setUser(user);
+                          Navigator.pushNamed(context, '/chatlist');
                         });
                       },
                       child: Text(
